@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Include bootstrap set up HTML -->
+        <title>Remimber</title>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    </head>
+    <body>
+        <!--Create header -->
+        <header style="text-align: center; align-content: center; width: '100%'; background-color: aqua; display: flex; ">
+            <h1 style="text-align: center;">Remimber</h1>
+        </header>
+        <div>
+             <!--Create form to set up new reminders-->
+            <form action="." method="POST" style="align-content: center; background-color: black;">
+                <h3 style="color: white; margin-left: 10px;">Create new reminder</h3>
+                <div>
+                    <input placeholder = " Enter a reminder here. " name="reminder"
+                    style="align-self: center; margin-right: 10px; margin-left: 10px; width: 40%; " type="text">
+                    <input name="date" type="date" required pattern="\d{4}-\d{2}-\d{2}">
+                </div>
+                <button class="btn btn-primary" type="submit" style="font-weight: bold; margin: 10px;">Submit</button>
+            </form>
+        </div>
+         <!--Create a form for each of the exsisting reminders. Allows the reminders to be edited and deleted -->
+        <div>
+          {% for reminder in reminders %}
+                <div style= "margin-left: 5px; margin-right: 5px; margin-top: 10px; margin-bottom: 10px; border: 2px dashed black; stroke:black;  stroke-width: 5px;" class="row">
+                    <form action="http://cadendeutscher.pythonanywhere.com/edit/{{reminder.id}}/" method="POST">
+                        <p>
+                            <input value = "{{reminder.content}}" name="reminderc"
+                            style="align-self: center; margin-right: 5px; margin-left: 5px; width: 40%; " type="text">
+                            <input name="datec" value="{{reminder.date}}" type="date" required pattern="\d{4}-\d{2}-\d{2}">
+                            <button class="btn btn-warning" type="submit" style="font-weight: bold; margin: 5px;">Submit Changes</button>
+                        </p>
+                    </form>
+                    <form style=" display: flex; justify-content: center; align-content: center;" action="http://cadendeutscher.pythonanywhere.com/delete/{{reminder.id}}" method="POST" >
+                        <button class="btn btn-danger" type="submit" style="margin-bottom: 5px; font-weight: bold;">Delete</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>
